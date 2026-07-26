@@ -13,7 +13,7 @@ By submitting a contribution, you agree that it may be distributed under the
 Requirements:
 
 - Node.js 20 or newer
-- pnpm 11.9.0
+- pnpm 10.34.0
 - Git
 
 Install and verify:

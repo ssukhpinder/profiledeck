@@ -60,7 +60,7 @@ contexts only; an existing context continues to use the revision it opened with.
 ## Requirements
 
 - Node.js 20 or newer
-- pnpm 11.9.0
+- pnpm 10.34.0
 - A supported ChatGPT Work or Codex plugin surface for plugin testing
 
 ## Build and verify

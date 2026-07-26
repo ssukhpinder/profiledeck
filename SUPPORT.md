@@ -7,7 +7,7 @@ on a best-effort basis.
 
 1. Confirm that you are using a supported ChatGPT Work or Codex plugin surface.
    ProfileDeck does not run in regular Chat.
-2. Use Node.js 20 or newer and pnpm 11.9.0.
+2. Use Node.js 20 or newer and pnpm 10.34.0.
 3. Pull the latest default branch.
 4. Run:
 

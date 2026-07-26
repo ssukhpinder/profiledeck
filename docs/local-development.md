@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Node.js 20 or newer
-- pnpm 11.9.0
+- pnpm 10.34.0
 - Git
 - A supported ChatGPT Work or Codex plugin surface for end-to-end plugin tests
 
