@@ -1,0 +1,51 @@
+{
+  "id": "work",
+  "revision": 1,
+  "name": "Work",
+  "description": "Projects, code review, meetings, and company-system tasks.",
+  "instructions": {
+    "context": "Use concise professional communication with owners, risks, and next actions.",
+    "dataHandling": [
+      "Do not route company or client data into Personal connectors.",
+      "Confirm the organization and destination before external writes."
+    ]
+  },
+  "capabilities": {
+    "skills": [
+      {
+        "id": "work-assistant",
+        "enabled": true,
+        "priority": 100
+      }
+    ],
+    "connectors": [
+      {
+        "connectorId": "github",
+        "instanceLabel": "Work organization",
+        "allowedOperations": [
+          "read",
+          "draft"
+        ],
+        "activation": "when_relevant"
+      },
+      {
+        "connectorId": "slack",
+        "instanceLabel": "Work workspace",
+        "allowedOperations": [
+          "read",
+          "draft",
+          "send"
+        ],
+        "activation": "explicit_only"
+      }
+    ],
+    "unknownCapability": "block"
+  },
+  "approvals": {
+    "read": "follow_native",
+    "draft": "follow_native",
+    "write": "always_ask",
+    "send": "always_ask",
+    "delete": "block"
+  }
+}

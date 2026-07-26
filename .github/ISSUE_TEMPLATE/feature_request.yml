@@ -1,0 +1,59 @@
+name: Feature request
+description: Propose a focused improvement to ProfileDeck.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the workflow problem without prescribing an implementation.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Primary surface
+      options:
+        - Codex desktop
+        - Codex CLI
+        - ChatGPT desktop Work
+        - MCP server
+        - Cross-surface
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example workflow
+      description: Use fictional, non-sensitive data.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Security, privacy, and permission impact
+      description: Identify new stored data, external actions, authentication, connector, or confirmation behavior.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Product boundaries
+      options:
+        - label: The proposal does not rely on ProfileDeck toggling unrelated connectors or bypassing native authorization.
+          required: true
+        - label: The proposal targets a supported Work or Codex plugin surface rather than regular Chat.
+          required: true

@@ -1,0 +1,92 @@
+name: Bug report
+description: Report reproducible incorrect behavior in a supported ProfileDeck surface.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include profile contents, conversation text, credentials, tokens, or connector payloads. Report vulnerabilities privately through the Security policy.
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Product surface
+      options:
+        - Codex in the ChatGPT desktop app
+        - Codex CLI
+        - ChatGPT desktop Work with fallback routing
+        - ChatGPT desktop Work with a registered MCP connection
+        - Other supported surface
+    validations:
+      required: true
+
+  - type: dropdown
+    id: transport
+    attributes:
+      label: MCP transport
+      options:
+        - Bundled stdio
+        - Streamable HTTP
+        - No MCP connection; skill fallback only
+        - Unknown
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: ProfileDeck version or commit
+      placeholder: "0.1.0 or a full commit SHA"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Node.js version, and relevant product version.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use sanitized example profile IDs and data.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Remove paths, tokens, profile content, and third-party data.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I reproduced this on a supported Work or Codex plugin surface, not regular Chat.
+          required: true
+        - label: I removed credentials, personal information, profile contents, conversations, and connector payloads.
+          required: true
+        - label: This is not an undisclosed security vulnerability.
+          required: true

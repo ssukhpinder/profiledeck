@@ -1,0 +1,4 @@
+interface:
+  display_name: "Personal Assistant"
+  short_description: "Route tasks through your Personal profile"
+  default_prompt: "Use $personal-assistant with my Personal profile for this request."

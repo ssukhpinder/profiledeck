@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "profiledeck": {
+      "command": "node",
+      "args": [
+        "./mcp/server.mjs",
+        "--stdio"
+      ],
+      "cwd": ".",
+      "env_vars": [
+        "PROFILEDECK_DATA_FILE"
+      ],
+      "startup_timeout_sec": 20,
+      "tool_timeout_sec": 60
+    }
+  }
+}

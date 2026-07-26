@@ -1,0 +1,20 @@
+{
+  "name": "profiledeck-dev",
+  "interface": {
+    "displayName": "ProfileDeck Development"
+  },
+  "plugins": [
+    {
+      "name": "profiledeck",
+      "source": {
+        "source": "local",
+        "path": "./plugins/profiledeck"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

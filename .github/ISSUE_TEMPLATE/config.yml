@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support guide
+    url: https://github.com/ssukhpinder/profiledeck/blob/main/SUPPORT.md
+    about: Review setup, troubleshooting, and supported product surfaces.
+  - name: Private vulnerability report
+    url: https://github.com/ssukhpinder/profiledeck/security/advisories/new
+    about: Report a suspected security vulnerability privately.

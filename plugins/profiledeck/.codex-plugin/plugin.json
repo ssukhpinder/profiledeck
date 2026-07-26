@@ -1,0 +1,41 @@
+{
+  "name": "profiledeck",
+  "version": "0.1.0",
+  "description": "Route ChatGPT and Codex tasks through explicit Personal, Work, or custom skill and connector profiles.",
+  "author": {
+    "name": "Sukhpinder Singh",
+    "url": "https://github.com/ssukhpinder"
+  },
+  "homepage": "https://github.com/ssukhpinder/profiledeck",
+  "repository": "https://github.com/ssukhpinder/profiledeck",
+  "license": "MIT",
+  "keywords": [
+    "profiles",
+    "skills",
+    "connectors",
+    "routing",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "ProfileDeck",
+    "shortDescription": "Route skills and connectors by profile",
+    "longDescription": "Choose Personal, Work, or a custom routing profile before a task. ProfileDeck applies profile-specific workflow guidance and checks whether a requested skill, connector, and operation fit the selected profile.",
+    "developerName": "Sukhpinder Singh",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/ssukhpinder/profiledeck",
+    "privacyPolicyURL": "https://github.com/ssukhpinder/profiledeck/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/ssukhpinder/profiledeck/blob/main/TERMS.md",
+    "defaultPrompt": [
+      "Switch to my Personal profile.",
+      "Switch to Work and show the allowed tools.",
+      "Check whether this action fits my active profile."
+    ],
+    "brandColor": "#6657D9"
+  }
+}

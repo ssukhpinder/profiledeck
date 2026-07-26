@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build release artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check tag and package versions
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          node --input-type=module -e "
+            import { readFileSync } from 'node:fs';
+            const expected = process.env.RELEASE_TAG.replace(/^v/, '');
+            const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+            const plugin = JSON.parse(readFileSync('plugins/profiledeck/.codex-plugin/plugin.json', 'utf8'));
+            if (pkg.version !== expected || plugin.version !== expected) {
+              throw new Error('Tag, package.json, and plugin.json versions must match.');
+            }
+          "
+
+      - name: Verify release source and third-party notices
+        run: pnpm check
+
+      - name: Package artifacts
+        run: |
+          mkdir -p release/plugin/profiledeck release/http
+          cp -R plugins/profiledeck/. release/plugin/profiledeck/
+          cp LICENSE THIRD_PARTY_LICENSES.txt release/plugin/
+          cp dist/profiledeck-http.mjs release/http/
+          cp LICENSE THIRD_PARTY_LICENSES.txt release/http/
+          (cd release/plugin && zip -qr "../profiledeck-${GITHUB_REF_NAME}.zip" LICENSE THIRD_PARTY_LICENSES.txt profiledeck)
+          (cd release/http && zip -qr "../profiledeck-http-${GITHUB_REF_NAME}.zip" LICENSE THIRD_PARTY_LICENSES.txt profiledeck-http.mjs)
+          rm -rf release/plugin release/http
+          (cd release && sha256sum ./*.zip > SHA256SUMS)
+
+      - name: Verify release artifact licenses
+        run: |
+          for archive in \
+            "release/profiledeck-${GITHUB_REF_NAME}.zip" \
+            "release/profiledeck-http-${GITHUB_REF_NAME}.zip"
+          do
+            unzip -tq "$archive"
+            entries="$(unzip -Z1 "$archive")"
+            grep -Fxq "LICENSE" <<< "$entries"
+            grep -Fxq "THIRD_PARTY_LICENSES.txt" <<< "$entries"
+          done
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            release/profiledeck-* \
+            release/SHA256SUMS \
+            --verify-tag \
+            --generate-notes \
+            --title "ProfileDeck ${GITHUB_REF_NAME}"

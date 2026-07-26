@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.profiledeck/
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+coverage/
+.DS_Store
+Thumbs.db

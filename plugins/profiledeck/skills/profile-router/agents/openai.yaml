@@ -1,0 +1,4 @@
+interface:
+  display_name: "Profile Router"
+  short_description: "Switch skills and connectors by profile"
+  default_prompt: "Use $profile-router to switch to my Work profile and show its allowed skills and connectors."

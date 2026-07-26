@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ssukhpinder/profiledeck/blob/main/plugins/profiledeck/schemas/profile.schema.json",
+  "title": "ProfileDeck profile",
+  "description": "A versioned, credential-free routing profile for ProfileDeck skills and connectors.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "revision",
+    "name",
+    "description",
+    "instructions",
+    "capabilities",
+    "approvals"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "instructions": {
+      "$ref": "#/$defs/instructions"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/capabilities"
+    },
+    "approvals": {
+      "$ref": "#/$defs/approvals"
+    }
+  },
+  "$defs": {
+    "operation": {
+      "type": "string",
+      "enum": [
+        "read",
+        "draft",
+        "write",
+        "send",
+        "delete"
+      ]
+    },
+    "approvalRule": {
+      "type": "string",
+      "enum": [
+        "follow_native",
+        "always_ask",
+        "block"
+      ]
+    },
+    "instructions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context",
+        "dataHandling"
+      ],
+      "properties": {
+        "context": {
+          "type": "string",
+          "maxLength": 1500,
+          "default": ""
+        },
+        "dataHandling": {
+          "type": "array",
+          "maxItems": 20,
+          "default": [],
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    "skillPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "enabled",
+        "priority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 50
+        }
+      }
+    },
+    "connectorPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connectorId",
+        "allowedOperations",
+        "activation"
+      ],
+      "properties": {
+        "connectorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "instanceLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "allowedOperations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/operation"
+          }
+        },
+        "activation": {
+          "type": "string",
+          "enum": [
+            "when_relevant",
+            "explicit_only"
+          ],
+          "default": "explicit_only"
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skills",
+        "connectors",
+        "unknownCapability"
+      ],
+      "properties": {
+        "skills": {
+          "type": "array",
+          "maxItems": 100,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/skillPolicy"
+          }
+        },
+        "connectors": {
+          "type": "array",
+          "maxItems": 100,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/connectorPolicy"
+          }
+        },
+        "unknownCapability": {
+          "type": "string",
+          "enum": [
+            "block",
+            "ask"
+          ],
+          "default": "block"
+        }
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read",
+        "draft",
+        "write",
+        "send",
+        "delete"
+      ],
+      "properties": {
+        "read": {
+          "$ref": "#/$defs/approvalRule"
+        },
+        "draft": {
+          "$ref": "#/$defs/approvalRule"
+        },
+        "write": {
+          "$ref": "#/$defs/approvalRule"
+        },
+        "send": {
+          "$ref": "#/$defs/approvalRule"
+        },
+        "delete": {
+          "$ref": "#/$defs/approvalRule"
+        }
+      }
+    }
+  }
+}

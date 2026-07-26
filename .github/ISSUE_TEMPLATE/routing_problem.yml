@@ -1,0 +1,83 @@
+name: Routing problem
+description: Report an unexpected allow, confirm, or deny decision.
+title: "[Routing]: "
+labels:
+  - routing
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ProfileDeck routes its own capabilities. It cannot toggle unrelated connectors or replace native authentication and policy.
+
+  - type: input
+    id: version
+    attributes:
+      label: ProfileDeck version or commit
+    validations:
+      required: true
+
+  - type: input
+    id: profile
+    attributes:
+      label: Sanitized profile ID and revision
+      placeholder: "work, revision 2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: context
+    attributes:
+      label: Context state
+      options:
+        - New context opened after the latest profile update
+        - Existing context pinned before the latest profile update
+        - Conversation-scoped fallback with no MCP context
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: route
+    attributes:
+      label: Proposed route
+      description: Provide sanitized skill ID, connector ID, operation, destination type, and whether it was explicitly requested.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: expected
+    attributes:
+      label: Expected decision
+      options:
+        - allow
+        - confirm
+        - deny
+    validations:
+      required: true
+
+  - type: dropdown
+    id: actual
+    attributes:
+      label: Actual decision
+      options:
+        - allow
+        - confirm
+        - deny
+        - error or missing context
+    validations:
+      required: true
+
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Why the decision appears incorrect
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I used sanitized identifiers and did not include profile content, credentials, conversation text, or connector data.
+          required: true

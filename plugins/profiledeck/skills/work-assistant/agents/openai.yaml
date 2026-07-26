@@ -1,0 +1,4 @@
+interface:
+  display_name: "Work Assistant"
+  short_description: "Route tasks through your Work profile"
+  default_prompt: "Use $work-assistant with my Work profile for this request."
