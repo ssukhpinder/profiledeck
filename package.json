@@ -35,10 +35,10 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
-    "@types/node": "^24.1.0",
+    "@types/node": "^26.1.2",
     "@types/proper-lockfile": "^4.1.4",
-    "esbuild": "^0.25.8",
-    "tsx": "^4.20.3",
-    "typescript": "^5.9.2"
+    "esbuild": "^0.28.1",
+    "tsx": "^4.23.10",
+    "typescript": "^7.0.2"
   }
 }
